@@ -1,0 +1,36 @@
+/*----------------------------
+    Layout Style
+------------------------------*/
+
+.layout {
+    background-color: rgb(1, 1, 62);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 16px;
+    color: white;
+}
+
+/*--------------------
+    Links Style
+----------------------*/
+a {
+    margin: 10px;
+    color: white;
+    border: solid 1px #ffb347;
+    border-radius: 6px;
+    padding: 0px 8px;
+    box-shadow: inset 0 0 0 0 #ffb347;
+    transition: ease-out 1s;
+    text-decoration: none;
+}
+
+a:hover {
+    box-shadow: inset 110px 0 0 0 #ffb347;
+    transition: .9s ease-in-out;
+}
+
+.active {
+    background-color: #ffb347;
+}
+

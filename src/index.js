@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import ErrorPage from './pages/error'
 import QueOnda from './pages/clock'
 import Timer from './pages/timer'
-import Weather from './weather'
+import Weather from './pages/weather'
 import Layout from './components/navBar'
 
 const AppLayout = () => {

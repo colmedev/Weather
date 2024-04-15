@@ -1,55 +1,65 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from 'react'
+import WeatherCard from '../components/weatherCard'
 const Key = '4c85a7ae58e9460eaa9222441242901'
-
-function Weather () {
+export default function Weather () {
   const [location, setLocation] = useState('')
   const [weather, setWeather] = useState({
     city: '',
     country: '',
     temp_c: '',
     condition_text: '',
-    icon: ''
+    icon: '',
+    local_time: ''
   })
   const url = `http://api.weatherapi.com/v1/current.json?key=${Key}&lang=es&q=`
   const urlLocation = url + location
 
-  const FetchAPI = async () => {
-    if (!location) return
-    try {
-      const res = await fetch(urlLocation)
-
-      if (!res.ok) throw new Error()
-
-      const data = await res.json()
-
-      setWeather({
-        city: data.location.name,
-        country: data.location.country,
-        temp_c: data.current.temp_c,
-        condition_text: data.current.condition.text,
-        icon: data.current.condition.icon
-      })
-    } catch (error) {
-      console.error(error, error)
+  const FetchApi = async () => {
+    if (location) {
+      try {
+        const res = await fetch(url + location)
+          .then(res => res.ok ? Promise.resolve(res) : Promise.reject(res))
+          .then(res => res.json())
+          .then(data =>
+            setWeather({
+              city: data.location.name,
+              country: data.location.country,
+              temp_c: data.current.temp_c,
+              condition_text: data.current.condition.text,
+              icon: data.current.condition.icon,
+              local_time: data.location.localtime
+            })
+          )
+      } catch (Error) {
+        console.error(Error, Error)
+      }
     }
   }
-
   useEffect(() => {
-    if (Location) {
-      FetchAPI()
+    if (location) {
+      FetchApi()
     }
-  }, [Location])
+  }, [location])
 
   console.log(weather)
   return (
     <>
-    <input name='search'
-    value={location}
-    onChange={(e) => setLocation(e.target.value)}/>
+    <form className='search-box rounded-sm flex justify-end' onSubmit={(e) => { e.preventDefault(); setLocation(e.target.search.value) } }>
+      <input className='search-input'
+      placeholder='City'
+      name='search'
+      />
+      <button type='submit'>Search</button>
+    </form>
 
-    <button type='submit' onClick={FetchAPI}>Search</button>
+          <WeatherCard
+          country = { weather.country }
+          city = { weather.city }
+          temp = { weather.temp_c }
+          condition = { weather.condition_text }
+          time = { weather.local_time }
+          image = { weather.icon}
+          />
     </>
   )
 }
-export default Weather

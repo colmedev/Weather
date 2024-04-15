@@ -4,15 +4,12 @@ import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import ErrorPage from './pages/error'
-import QueOnda from './pages/clock'
-import Timer from './pages/timer'
 import Weather from './pages/weather'
-import Layout from './components/navBar'
+import './App.css'
 
 const AppLayout = () => {
   return (
     <>
-      <Layout />
       <Outlet />
     </>
   )
@@ -26,14 +23,6 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Weather />
-      },
-      {
-        path: 'clock',
-        element: <QueOnda />
-      },
-      {
-        path: 'timer',
-        element: <Timer />
       }
     ]
   }

@@ -4,7 +4,7 @@ import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import ErrorPage from './pages/error'
-import Weather from './pages/weather'
+import Index from './pages/index'
 import './App.css'
 
 const AppLayout = () => {
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Weather />
+        element: <Index />
       }
     ]
   }

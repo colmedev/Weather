@@ -1,65 +1,79 @@
 import { useState, useEffect } from 'react'
 import WeatherCard from '../components/weatherCard'
-const Key = '4c85a7ae58e9460eaa9222441242901'
-export default function Weather () {
-  const [location, setLocation] = useState('')
-  const [weather, setWeather] = useState({
-    city: '',
-    country: '',
-    temp_c: '',
-    condition_text: '',
-    icon: '',
-    local_time: ''
-  })
-  const url = `http://api.weatherapi.com/v1/current.json?key=${Key}&lang=es&q=`
-  const urlLocation = url + location
+const KeyApi = '7b34ffaf3ac4523deb1dc2a9f2c3efff'
 
-  const FetchApi = async () => {
-    if (location) {
-      try {
-        const res = await fetch(url + location)
-          .then(res => res.ok ? Promise.resolve(res) : Promise.reject(res))
-          .then(res => res.json())
-          .then(data =>
-            setWeather({
-              city: data.location.name,
-              country: data.location.country,
-              temp_c: data.current.temp_c,
-              condition_text: data.current.condition.text,
-              icon: data.current.condition.icon,
-              local_time: data.location.localtime
-            })
-          )
-      } catch (Error) {
-        console.error(Error, Error)
+const DEFAULT_WEATHER = {
+  city: '',
+  country: '',
+  temp_c: '',
+  wind: '',
+  humidity: '',
+  condition_text: '',
+  icon: '',
+  feels_like: ''
+}
+
+export default function Weather () {
+  const [location, setLocation] = useState('london')
+  const [weather, setWeather] = useState(DEFAULT_WEATHER)
+
+  useEffect(() => {
+    const FetchApi = async () => {
+      const url = 'https://api.openweathermap.org/data/2.5/weather?q='
+      const urlLocation = url + location + `&appid=${KeyApi}`
+
+      if (location) {
+        try {
+          const response = await fetch(urlLocation)
+          if (!response.ok) throw new Error('Failed to fetch')
+          const data = await response.json()
+
+          setWeather({
+            city: data.name,
+            country: data.sys.country,
+            temp_c: data.main.temp,
+            wind: data.wind.speed,
+            humidity: data.main.humidity,
+            condition_text: data.weather[0].description,
+            icon: data.weather[0].icon,
+            feels_like: data.main.feels_like
+          })
+        } catch (Error) {
+          console.error(Error, Error)
+        }
       }
     }
-  }
-  useEffect(() => {
-    if (location) {
-      FetchApi()
-    }
+
+    FetchApi()
   }, [location])
 
-  console.log(weather)
+  const handleOnSubmit = (e) => {
+    e.preventDefault()
+    setLocation(e.target.search.value)
+  }
+
   return (
     <>
-    <form className='search-box rounded-sm flex justify-end' onSubmit={(e) => { e.preventDefault(); setLocation(e.target.search.value) } }>
+      <form className='search-box' onSubmit={(e) => { handleOnSubmit(e) } }>
       <input className='search-input'
       placeholder='City'
       name='search'
       />
-      <button type='submit'>Search</button>
+      <button type='submit' className='btn'>Search</button>
     </form>
 
-          <WeatherCard
-          country = { weather.country }
-          city = { weather.city }
-          temp = { weather.temp_c }
-          condition = { weather.condition_text }
-          time = { weather.local_time }
-          image = { weather.icon}
-          />
+    <WeatherCard
+    country = { weather.country }
+    city = { weather.city }
+    image = { `https://openweathermap.org/img/wn/${weather.icon}@2x.png` }
+    alt = { weather.condition_text }
+    condition = { weather.condition_text }
+    temp = { weather.temp_c }
+    wind = { weather.wind }
+    humidity = { weather.humidity }
+    feels_like = { weather.feels_like }
+    />
+
     </>
   )
 }

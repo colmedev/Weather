@@ -1,54 +1,112 @@
-.cont {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  padding: 10px;
-  background-color: blue;
-    
+:root {
+  --primary-color: #3b82f6;
+  --Bg-color: #2563eb;
+  --Bg-cards: #030712;
+  --text-color: #f9fafb;
+  --button-color: #172554;
 }
 
+/*
+  'blue': {
+        '50': '#eff6ff',
+        '100': '#dbeafe',
+        '200': '#bfdbfe',
+        '300': '#93c5fd',
+        '400': '#60a5fa',
+        '500': '#3b82f6',
+        '600': '#2563eb',
+        '700': '#1d4ed8',
+        '800': '#1e40af',
+        '900': '#1e3a8a',
+        '950': '#172554',
+    },
+*/
+
+/*------------------
+      HTML
+-------------------*/
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--Bg-color);
+  color: var(--text-color);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/*-----------------------
+        APP
+-------------------------*/
+
+/*----- Search ------*/
+
+
 .search-box {
-  align-items: center;
+  display: flex;
+  justify-content: end;
   padding: 16px;
 }
 
 .search-input {
-  border-radius: 6px;
-  border-style: none;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--others);
 }
 
-.location {
-  grid-column: 1 / 3;
-  grid-row: 1;
-  padding: 10px;
+
+.btn {
+  background-color: var(--button-color);
+  color: var(--text-color-sec);
+  padding-inline: 10px;
+  border-radius: 13px;
+  margin-left: 6px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+
+
+/*------ weatherCard ------*/
+
+.weather {
+  background-color: var(--Bg-cards);
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+
+
+.cont-img {
+display: flex;
+justify-content: center;
+padding-block: 3rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.weather-img {
+  inline-size: 12rem;
 }
+
+.location {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.5rem;
+  padding-block: 1.5rem;
+}
+
+
+.date {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: 1.3rem;
+  padding-block: 3rem;
+}
+
+.temp {
+  display: contents;
+}
+

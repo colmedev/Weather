@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import WeatherCard from '../components/weatherCard'
+import '../App.css'
 const KeyApi = '7b34ffaf3ac4523deb1dc2a9f2c3efff'
 
 const DEFAULT_WEATHER = {

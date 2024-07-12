@@ -1,5 +1,7 @@
+import { BiWind } from 'react-icons/bi'
 export default function WeatherCard (props) {
-  const Celcius = Math.fround(props.temp - 273.75).toFixed(2)
+  const Celcius = (prop) => Math.fround(prop - 273.75).toFixed(2)
+  const Speed = (props) => Math.round(props * 3.6)
   return (
     <>
         <div className="location">
@@ -14,9 +16,9 @@ export default function WeatherCard (props) {
         <div className="date">
           <p className="cond">{props.condition}</p>
           <div className="temp">
-            <p>{Celcius}ºC</p>
-            <p>{props.wind} m/s</p>
-            <p>{props.feels_like}</p>
+            <p> { Celcius(props.temp) } ºC </p>
+            <p> <BiWind className='icon' /> { Speed(props.wind) } Km/h </p>
+            <p> Feels Like: { Celcius(props.feels_like) } ºC </p>
         </div>
         </div>
     </>
